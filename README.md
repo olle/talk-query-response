@@ -29,8 +29,8 @@ _The Query/Response pattern, that I arrived at, challenges developers to think
   [1010]: https://twitter.com/fgeorge52
   [1020]: https://youtu.be/yPf5MfOZPY0
 
-A quick example
----------------
+A simple example
+----------------
 
 Let's dive in and get to know the Query/Response pattern from a more practical
 point of view first. The protocol is first and foremost _message based_ but any
@@ -108,9 +108,24 @@ _But is a published REST endpoint, handling POST requests, that much better
 _To think about who's controlling the write operation, is a tremendously
  powerful concept, in my view. And, arguably, the further away we can push
  this from the actual act of writing, the less we need to think about the
- complexity of both collaborators at once. This is of course in essence
- messaging. We could still achieve this with the REST endpoint, but it is
- a lot harder to avoid thinking about the effect of the returned response
+ complexity of both collaborators at once. This is of course the essence
+ of messaging. We could still achieve this with the REST endpoint, but it
+ is a lot harder to avoid thinking about the effect of the returned response
  from the POST request. Event if it would be empty._
 
   [5010]: https://en.wikipedia.org/wiki/Robustness_principle
+
+#### No book lovers out there?
+
+Let's rewind the scenario a bit. Let's say we've just published the Query, and
+no responses arrive at once. What should we do?
+
+This is not an open question, but a specific part of the Query/Response
+pattern. It is always up to the _consumer of responses_ (the one that sent
+the Query to begin with), to decide how long it will continue to wait for,
+or read, responses. The protocol gives no guarantees at all. There may be
+responses. There might be none, one or a huge amount. This is by design, and
+it forces us to think about important questions, early in development.
+Fallback values, proper defaults, circuit-breakers and how to deal with a
+flood of responses.
+
