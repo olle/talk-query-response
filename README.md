@@ -28,3 +28,53 @@ _The Query/Response pattern, that I arrived at, challenges developers to think
 
   [1010]: https://twitter.com/fgeorge52
   [1020]: https://youtu.be/yPf5MfOZPY0
+
+A quick example
+---------------
+
+Let's dive in and get to know the Query/Response pattern from a more practical
+point of view first. The protocol is first and foremost _message based_ but any
+asynchronous communication implementation can, in theory, be used. I'll present
+everything using pseudo-code and abstract structures only.
+
+### Any good sci-fi books in our library?
+
+    query: books.sci-fi
+    reply-to: library/books.sci-fi.42
+
+The structure above captures all the basic components which a Query should
+communicate. The term `books.sci-fi` expresses the published _need_, and in our
+example we can quite easily understand that it's about books in the genre or
+category science fiction.
+
+_The dot-notation is not at all required, the Query can use any syntax that
+fits the platform or programming language._
+
+In the published Query we've made sure to add an _address_ or designation as to
+where responses should be directed `library/books.sci-fi.42`. This is
+important, not only in order for information to arrive at the right place, but
+we also want to avoid coupling the sending entity to the Query. The reply to
+address is only just that, a place, point or inbox to send responses.
+
+In our example we've provided an address to the `library` but we've made it
+unique for our specific query, with a label or key (overly simplified here).
+The term `books.sci-fi.42` is only used for responses to our Query.
+Furthermore we are not required to _keep_ or guarantee the existence of the
+given address for any specified time, more about that later.
+
+#### The current Top-3 books
+
+    response: library/books.sci-fi.42
+    body: ['Neuromancer', 'Snow Crash', 'I, Robot']
+
+We're in luck, we've got a response! The information above represents a
+Response to the Query we published. It is directed back to the address from
+the Query, and carries a body or payload of information which may be of
+interest to the Query publisher.
+
+The response does not have to convey its publisher, which allows us to reason
+about exchange of information without the notion of _"A sends a query to B,
+which in turn sends a responds to A"_. We are ensuring decoupling of the
+collaborators by having the pattern allow for an _optional_ Response to the
+provided _address_, rather than a required reply to the _sender_. More about
+later.
