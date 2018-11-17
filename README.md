@@ -78,3 +78,39 @@ which in turn sends a responds to A"_. We are ensuring decoupling of the
 collaborators by having the pattern allow for an _optional_ Response to the
 provided _address_, rather than a required reply to the _sender_. More about
 later.
+
+#### The Asimov collection
+
+Now, since our Query is published as a notification, and since we're not bound
+to a single response, we can simply keep on consuming any Response sent back
+to the provided address.
+
+    response: library/books.sci-fi.42
+    body: ['I, Robot', 'The Gods Themselves', 'Pebble in the Sky']
+
+In this payload we receive a list of book titles which all have the same
+author. One of the entries was already in the first Response we received.
+This is of course not a problem, and it shows us something important. The
+consumer of a Response will have to assert the value of the received
+information, and decide how to handle it.
+
+In this sense [Postel's Law][5010] applies, information should be liberally handled (interpreted), but publishing information should better be done with strict rules. As a consumer of replies we can never be certain of a strict
+conformity of the payload information - the model of decoupling has a price,
+and this is it.
+
+_But is a published REST endpoint, handling POST requests, that much better
+ then? I would argue that we still have the same requirements. Being able to
+ handle requests liberally. We must always convert and validate, with great
+ care. But we are coupling the client and server to each other and, what is
+ perhaps even worse, we're actually asking the client to control the
+ imperative writing of information in the server._
+
+_To think about who's controlling the write operation, is a tremendously
+ powerful concept, in my view. And, arguably, the further away we can push
+ this from the actual act of writing, the less we need to think about the
+ complexity of both collaborators at once. This is of course in essence
+ messaging. We could still achieve this with the REST endpoint, but it is
+ a lot harder to avoid thinking about the effect of the returned response
+ from the POST request. Event if it would be empty._
+
+  [5010]: https://en.wikipedia.org/wiki/Robustness_principle
