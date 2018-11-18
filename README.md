@@ -30,6 +30,12 @@ _The Query/Response pattern, that I arrived at, challenges developers to think
   [1010]: https://twitter.com/fgeorge52
   [1020]: https://youtu.be/yPf5MfOZPY0
 
+Table of Contents
+-----------------
+
+- [A simple example](#A-simple-example)
+  * [Any good sci-fi books out there?](#Any-good-sci_fi-books-out-there?)
+
 A simple example
 ----------------
 
