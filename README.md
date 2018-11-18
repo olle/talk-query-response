@@ -6,17 +6,20 @@ WIP: Query/Response
 Table of Contents
 -----------------
 
-- [Forewords](#forewords)
+- [Foreword](#foreword)
 - [A simple example](#a-simple-example)
   * [Any good sci-fi books out there?](#any-good-sci-fi-books-out-there)
   * [The current top-3 books](#the-current-top-3-books)
   * [The Asimov collection](#the-asimov-collection)
+  * [No book lovers out there?](#no-book-lovers-out-there)
+  * [Reprise, surprise](#reprise-surprise)
 - [Specification](#specification)
-  * [Components and Collaborators](#components-and-collaborators)
-      - [Publisher](#publisher)
+  - [Components and Collaborators](#components-and-collaborators)
+      + [Publisher](#publisher)
+      + [Consumer](#consumer)
 
-Forewords
----------
+Foreword
+--------
 
 _Sometime around 2015 I came across a presentation with [Fred George][1010],
  discussing the [Challenges In Implementing Microservices][1020]. It's a great
