@@ -171,3 +171,48 @@ _Now since we've seen duplicate entries in different Responses and complete
  duplication of full Responses, we can easily understand that a consumer
  implementation cannot just keep a list. It would suffice to use a set, and
  any duplicates will only be kept in one entry._
+
+#### So, what's in the library?
+
+Now let's see what we have.
+
+    query: library.sci-fi
+    reply-to: bookshelf/library.sci-fi#1337
+
+A new Query is published and we understand the `query` term to mean that
+there's a _need_ or interest in knowing what books are in the library. A
+successful scenario could arrive at the following Response being received.
+
+    response: bookshelf/library.sci-fi#1337
+    body:
+      Neuromancer
+      Snow Crash
+      I, Robot
+      The Gods Themselves
+      Pebble in the Sky
+
+Just as expected.
+
+### Inversion of flow
+
+What we've seen in this example scenario is actually an inversion of what
+could have been implemented as a tightly coupled, chained set of synchronous
+service calls:
+
+> A User whishes to view a list of science fiction books through the
+> `Bookshelf` service, which needs to call the `Library` for the list. The
+> `Library` service aggregates all sci-fi books by calls to 2 configured
+> services: `Top-3` and `Asimov`. Only after both service calls return, can
+> the `Library` respond the user `Bookshelf` and the User is presented with
+> the list of sci-fi books.
+
+In this type of system, not only are the calls aggregated in time, effectively
+forcing the user to wait until all calls return, but also to the availability
+and fault-tolerance of each service. This accumulates at the point of the user,
+making it highly probable that viewing the list of books will fail.
+
+_There are many ways to work towards better and more resilient solutions, with
+ the synchronous solution as a starting point. I'm not trying to say that it is
+ the wrong model. The point I'm trying to make, is the very different way of
+ thinking the Query/Response pattern forces us into from the start._
+
