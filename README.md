@@ -13,10 +13,15 @@ Table of Contents
   * [The Asimov collection](#the-asimov-collection)
   * [No book lovers out there?](#no-book-lovers-out-there)
   * [Reprise, surprise](#reprise-surprise)
+  * [So what's in the library](#so-whats-in-the-library)
+- [Inversion of flow](#inversion-of-flow)
 - [Specification](#specification)
   - [Components and Collaborators](#components-and-collaborators)
       + [Publisher](#publisher)
       + [Consumer](#consumer)
+      + [Query](#query)
+      + [Response](#response)
+      + [Address](#address)
 
 Foreword
 --------
@@ -290,7 +295,7 @@ for consumption.
 
 #### `Response`
 
-A message or notification that is published as a response to a, previously,
+A message or notification that is published as a response to a previously
 published Query. The Response SHOULD NOT be sent without a distinct Query being
 seen (use normal event notifications for that instead). The Response is not
 strictly bound to the time frame of the Query. Nevertheless, it is not
