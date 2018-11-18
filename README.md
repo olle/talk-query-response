@@ -33,8 +33,10 @@ _The Query/Response pattern, that I arrived at, challenges developers to think
 Table of Contents
 -----------------
 
-- [A simple example](#A-simple-example)
-  * [Any good sci-fi books out there?](#Any-good-sci_fi-books-out-there?)
+- [A simple example](#a-simple-example)
+  * [Any good sci-fi books out there?](#any-good-sci-fi-books-out-there)
+  * [The current top-3 books](#the-current-top-3-books)
+  * [The Asimov collection](#the-asimov-collection)
 
 A simple example
 ----------------
@@ -72,7 +74,7 @@ our specific Query. Furthermore we are not required to _keep_ or guarantee
 the existence of the given address for any specified time, more about that
 later.
 
-#### The current Top-3 books
+#### The current top-3 books
 
     response: library/books.sci-fi#42
     body:
