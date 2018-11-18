@@ -303,11 +303,31 @@ recommended to publish a Response outside of the time-window, or cadence, that
 the given problem domain has.
 
 For example, a Response within shipping and logistics may still be of interest
-after several minutes of seeing a Query. In online-trading Responses older
-than seconds may be of no value at all.
+after several minutes of seeing a Query. In online-trading, responses older
+than seconds, from the time of the Query, may be of no value at all.
+
+The Response MUST be designated to the Address of the Query it responds to,
+the correlation must be specific to comparability or equality. In most cases
+though, this will be implicit in the transport method. For example messaging
+over [AMQP][3050] uses a _routing key_, which is then given in the Query, as
+a `reply-to` property. A Response sent to that Address is then either routed
+correctly or dropped by the broker.
+
+The Response SHOULD provide a body of information, such as a payload of data.
+Please note that this is not a strict requirement, and the Consumer is always
+required to assert the received information, for validity and usefulness.
 
 #### `Address`
 
-TODO...
+Describes and designates a _context_, most commonly manifested by a point of
+delivery, a mailbox or place for delivery of a notification or message.
+
+The Address MUST NOT describe a system actor or collaborator, but rather a
+resource or function that silently accepts information. The Address SHOULD
+act as a decoupling device between a Publisher and a Consumer.
+
+Commonly, in messaging or broker based systems, an Address is typically a
+routing key, topic or queue-name.
 
   [3010]: https://www.ietf.org/rfc/rfc2119.txt
+  [3050]: https://www.rabbitmq.com/specification.html
