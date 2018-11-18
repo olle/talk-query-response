@@ -3,6 +3,21 @@ WIP: Query/Response
 
 **A messaging protocol for evolutionary architectures.**
 
+Table of Contents
+-----------------
+
+- [Forewords](#forewords)
+- [A simple example](#a-simple-example)
+  * [Any good sci-fi books out there?](#any-good-sci-fi-books-out-there)
+  * [The current top-3 books](#the-current-top-3-books)
+  * [The Asimov collection](#the-asimov-collection)
+- [Specification](#specification)
+  * [Components and Collaborators](#components-and-collaborators)
+      - [Publisher](#publisher)
+
+Forewords
+---------
+
 _Sometime around 2015 I came across a presentation with [Fred George][1010],
  discussing the [Challenges In Implementing Microservices][1020]. It's a great
  talk, filled with a lot of experience and relevance, also today if you ask me.
@@ -29,14 +44,6 @@ _The Query/Response pattern, that I arrived at, challenges developers to think
 
   [1010]: https://twitter.com/fgeorge52
   [1020]: https://youtu.be/yPf5MfOZPY0
-
-Table of Contents
------------------
-
-- [A simple example](#a-simple-example)
-  * [Any good sci-fi books out there?](#any-good-sci-fi-books-out-there)
-  * [The current top-3 books](#the-current-top-3-books)
-  * [The Asimov collection](#the-asimov-collection)
 
 A simple example
 ----------------
