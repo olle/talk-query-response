@@ -23,6 +23,7 @@ Table of Contents
       + [Query](#query)
       + [Response](#response)
       + [Address](#address)
+  - [Methods and Actions](#methods-and-actions)
 
 Foreword
 --------
@@ -279,6 +280,8 @@ layer, but some form of _messaging_ SHOULD be available to the Publisher.
 
 A Publisher MUST NOT be required to know about any Consumers (see below).
 
+There are two types of publishers, the Query- and the Response-Publisher.
+
 #### `Consumer`
 
 An active component, service or collaborator, with the capacity to, on its own
@@ -286,6 +289,9 @@ initiative, read notifications or messages of its choice. The consumer SHALL
 willingly _subscribe_ to these notifications.
 
 A Consumer MUST NOT be required to know about any Publishers.
+
+There are naturally also two types of consumers, the Query- and the
+Response-Consumer.
 
 #### `Query`
 
@@ -345,3 +351,34 @@ routing key, topic or queue-name.
 
   [3010]: https://www.ietf.org/rfc/rfc2119.txt
   [3050]: https://www.rabbitmq.com/specification.html
+
+### Methods and Actions
+
+#### `Query-Publisher` prepares an `Address`
+
+If there's an intent to publish a Query, the Query-Publisher SHOULD ensure
+that there are suitable resources allocated to accommodate a specific
+Address for the Query.
+
+It is left to the implementation to decide on the temporal binding between
+the _intent_ and the creation of resources. It may be that the only option is
+to use short-lived or temporary resources, which may or may not fail to be
+allocated. Therefore there's no strict requirement to ensure that the Address
+can be handled. It is assumed that a _best effort_ is made.
+
+#### `Query-Publisher` publishes a `Query`
+
+At any time can any Query-Publisher choose to express a _need_ and publish
+a Query. No ACK or NACK is required and the Query-Publisher MUST NOT assume
+that the Query has been consumed, or that any Response will be returned, at
+this time.
+
+The Query-Publisher SHOULD entertain the case where the Query is lost, examine
+options to detect and repair this, if possible. Timeouts, retries or fallbacks
+are perhaps options to investigate.
+
+#### `Query-Consumer` consumes a `Query`
+
+#### `Response-Publisher` publishes a `Response`
+
+#### `Response-Consumer` consumes a `Response`
