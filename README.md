@@ -215,3 +215,76 @@ _There are many ways to work towards better and more resilient solutions, with
  the synchronous solution as a starting point. I'm not trying to say that it is
  the wrong model. The point I'm trying to make, is the very different way of
  thinking that the Query/Response pattern forces us into from the start._
+
+Specification
+-------------
+
+We will attempt to describe the Query/Response pattern in a more formal way,
+but without any claim of conformance to other standards or rules. This is a
+pattern derived from the idea of expressing a _need_, and formed into a
+specific variant in our Query/Response protocol. It is just our particular
+_flavour_ of inversion of flow and asynchronous message based communication.
+Take what you like, leave the rest, and extend as you seem fit.
+
+_We try to adhere to [RFC 2119][3010] when using the keywords: "MUST",
+ "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
+ "RECOMMENDED",  "MAY", and "OPTIONAL"._
+
+### Components and Collaborators
+
+#### `Publisher`
+
+The active component, service or collaborator, with the capacity to publish or
+broadcast a notification or message, for other to _see_.
+
+We like to avoid binding the Query/Response pattern to any specific transport
+layer, but some form of _messaging_ SHOULD be available to the Publisher.
+
+A Publisher MUST NOT be required to know about any Consumers (see below).
+
+#### `Consumer`
+
+An active component, service or collaborator, with the capacity to, on its own
+initiative, read notifications or messages of its choice. The consumer SHALL
+willingly _subscribe_ to these notifications.
+
+A Consumer MUST NOT be required to know about any Publishers.
+
+#### `Query`
+
+A message or notification that expresses a specific _need_ or _whish_, which
+can be fulfilled through a later, at any time, published Response. No strict
+syntax is specified, rather the context, platform, transport layer and/or
+programming language, should guide users to a suitable format.
+
+Most typically a string or term is used, closely related to event names or
+message names (_routing key_).
+
+Expressions or terms within a domain specific, or ubiquitous language, are
+commonly used to communicate the intent of the Query. It is not uncommon to
+use dot-notation or some syntax with brevity, like: `product.images.4123`
+or `scores.today.highscores`. This is an example of structure and parameters,
+an API build into the Query - this is an accepted pattern and style within
+the Query/Response pattern itself.
+
+The Query MUST specify an Address for responses, which SHOULD be appropriate
+for consumption.
+
+#### `Response`
+
+A message or notification that is published as a response to a, previously,
+published Query. The Response SHOULD NOT be sent without a distinct Query being
+seen (use normal event notifications for that instead). The Response is not
+strictly bound to the time frame of the Query. Nevertheless, it is not
+recommended to publish a Response outside of the time-window, or cadence, that
+the given problem domain has.
+
+For example, a Response within shipping and logistics may still be of interest
+after several minutes of seeing a Query. In online-trading Responses older
+than seconds may be of no value at all.
+
+#### `Address`
+
+TODO...
+
+  [3010]: https://www.ietf.org/rfc/rfc2119.txt
