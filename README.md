@@ -36,12 +36,12 @@ A simple example
 Let's dive in and get to know the Query/Response pattern from a more practical
 point of view first. The protocol is first and foremost _message based_ but any
 asynchronous communication implementation can, in theory, be used. I'll present
-everything using pseudo-code and abstract structures only.
+everything using pseudo-code and stupid-simple data structures only.
 
 ### Any good sci-fi books in our library?
 
     query: books.sci-fi
-    reply-to: library/books.sci-fi.42
+    reply-to: library/books.sci-fi#42
 
 The structure above captures all the basic components that a Query should
 communicate. The term `books.sci-fi` expresses the published _need_, and in
@@ -52,23 +52,23 @@ _The dot-notation is not at all required, the Query can use any syntax that
 fits the platform or programming language._
 
 In the published Query we've made sure to add an _address_ or designation as
-to where responses should be directed `library/books.sci-fi.42`. This is
+to where responses should be directed `library/books.sci-fi#42`. This is
 important, not only in order for information to arrive at the right place,
 but we also want to avoid coupling the sender to the Query. We don't need to
 state who's publishing the Query. The `reply-to` _address_, therefore, is
 simply just that: an address, a place, a location or _mailbox_ that we can
 send responses to.
 
-In our example we've provided the address `library/books.sci-fi.42`. We have
+In our example we've provided the address `library/books.sci-fi#42`. We have
 made it unique for our specific query, with the label or key (overly
-simplified here). The term `books.sci-fi.42` is only used for responses to
+simplified here). The term `books.sci-fi#42` is only used for responses to
 our specific Query. Furthermore we are not required to _keep_ or guarantee
 the existence of the given address for any specified time, more about that
 later.
 
 #### The current Top-3 books
 
-    response: library/books.sci-fi.42
+    response: library/books.sci-fi#42
     body:
       Neuromancer
       Snow Crash
@@ -92,7 +92,7 @@ Now, since our Query is published as a notification, and since we're not bound
 to a single response, we can simply keep on consuming any Response sent back
 to the provided address.
 
-    response: library/books.sci-fi.42
+    response: library/books.sci-fi#42
     body:
       I, Robot
       The Gods Themselves
