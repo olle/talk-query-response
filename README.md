@@ -38,7 +38,7 @@ point of view first. The protocol is first and foremost _message based_ but any
 asynchronous communication implementation can, in theory, be used. I'll present
 everything using pseudo-code and stupid-simple data structures only.
 
-### Any good sci-fi books in our library?
+### Any good sci-fi books out there?
 
     query: books.sci-fi
     reply-to: library/books.sci-fi#42
@@ -89,7 +89,7 @@ later.
 #### The Asimov collection
 
 Now, since our Query is published as a notification, and since we're not bound
-to a single response, we can simply keep on consuming any Response sent back
+to a single reply, we can simply keep on consuming any Response sent back
 to the provided address.
 
     response: library/books.sci-fi#42
@@ -123,7 +123,7 @@ _To think about who's controlling the write operation, is a tremendously
  complexity of both collaborators at once. This is of course the essence
  of messaging. We could still achieve this with the REST endpoint, but it
  is a lot harder to avoid thinking about the effect of the returned response
- from the POST request. Event if it would be empty._
+ from the POST request. Even if it is empty or `void`._
 
   [5010]: https://en.wikipedia.org/wiki/Robustness_principle
 
@@ -132,16 +132,42 @@ _To think about who's controlling the write operation, is a tremendously
 Let's rewind the scenario a bit. Let's say we've just published the Query,
 and no responses arrive at once. What should we do?
 
-This is not an open question, but a specific part of the Query/Response
+This is not a flaw in the design, but a specific part of the Query/Response
 pattern. It is always up to the _consumer of responses_ (the one that sent
 the Query to begin with), to decide how long it will continue to wait for,
-or read, responses. The protocol gives no guarantees at all. 
+or read, responses. The protocol gives no guarantees at all.
 
-There may be responses. There might be none, one or a huge amount. This is by
-design, and it forces us to think about important questions, early in
-development. Fallback values, proper defaults, circuit-breakers and how to
-deal with a flood of responses.
+There may be responses. There might be none, just a single one or a huge
+amount. This is by design, and it forces us to think about important
+questions, early in development. Fallback values, proper defaults, circuit-
+breakers and how to deal with a flood of responses.
 
 _The most commonly asked question from developers new to the Query/Response
  pattern is: "But what if there's no response, I have to return something to
- the user?"._
+ the user?". Exactly, plan for that, this is something that should be
+ considered early in design and development. There might very well be a
+ Response, eventually, but how long is it then ok to have the user wait for
+ a result?_
+
+#### Reprise, surprise
+
+Back to our original scenario. We've received both the top-3, as well as
+a collection of Asimov books. And we're still open for more responses to the
+published address.
+
+    response: library/books.sci-fi#42
+    body:
+      Neuromancer
+      Snow Crash
+      I, Robot
+
+Hey, what's this! We now receive the same response and body payload, as
+before. This is still not a problem, nor a failure in the protocol. It is
+not possible to deter multiple responses, even from the same Publisher, and
+we as a consumer must be ready to handle it. There is nothing wrong with this
+Response at all.
+
+_Now since we've seen duplicate entries in different Responses and complete
+ duplication of full Responses, we can easily understand that a consumer
+ implementation cannot just keep a list. It would suffice to use a set, and
+ any duplicates will only be kept in one entry._
