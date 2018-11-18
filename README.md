@@ -358,7 +358,7 @@ routing key, topic or queue-name.
 
 If there's an intent to publish a Query, the Query-Publisher SHOULD ensure
 that there are suitable resources allocated to accommodate a specific
-Address for the Query.
+Address for any responses to the Query.
 
 It is left to the implementation to decide on the temporal binding between
 the _intent_ and the creation of resources. It may be that the only option is
@@ -369,9 +369,9 @@ can be handled. It is assumed that a _best effort_ is made.
 #### `Query-Publisher` publishes a `Query`
 
 At any time can any Query-Publisher choose to express a _need_ and publish
-a Query. No ACK or NACK is required and the Query-Publisher MUST NOT assume
-that the Query has been consumed, or that any Response will be returned, at
-this time.
+a Query. No ACK or NACK will be provided and the Query-Publisher MUST NOT
+assume that the Query has been consumed, or that any Response will be
+returned, at this time.
 
 The Query-Publisher SHOULD entertain the case where the Query is lost, examine
 options to detect and repair this, if possible. Timeouts, retries or fallbacks
@@ -379,6 +379,34 @@ are perhaps options to investigate.
 
 #### `Query-Consumer` consumes a `Query`
 
+A Query-Consumer, that is willingly listening for queries, may at any time
+receive, and choose to handle, a Query.
+
+The Query-Consumer SHOULD handle Queries with an intent to _do what is right_.
+In most cases this would mean that Query-Consumers handle queries which they
+are capable of providing responses for.
+
+_Please note that the Query/Response protocol does not protect against
+Query-Consumers with harmful intent. Implementations should consider issues
+like security, encryption and trust as extensions to it._
+
+A Query-Consumer MAY decide, after handling the Query, to publish none, one
+or any number of responses - it is optional.
+
 #### `Response-Publisher` publishes a `Response`
 
+The Response-Publisher MUST use the provided Address of the Query when
+publishing responses. No ACK or NACK will be provided and the
+Response-Publisher MUST NOT assume that the Response has been consumed, at
+this time.
+
 #### `Response-Consumer` consumes a `Response`
+
+A Response-Consumer that is listening for responses, at a previously created
+Address MAY at any time receive one or several responses. It MAY never receive
+a Response at that Address.
+
+A received Response MAY have a payload or body of information, as well as any
+header-elements, META-data or other properties which may be specific to the
+transport layer. The Response-Consumer SHOULD assert and validate any
+transferred information with great care.
