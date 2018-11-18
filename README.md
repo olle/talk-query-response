@@ -84,7 +84,7 @@ about exchange of information without the notion of _"A sends a query to B,
 which in turn sends a responds to A"_. We are ensuring decoupling of the
 collaborators by having the pattern allow for an _optional_ Response to the
 provided _address_, rather than a required reply to the _sender_. More about
-later.
+that later.
 
 #### The Asimov collection
 
@@ -167,10 +167,10 @@ not possible to deter multiple responses, even from the same Publisher, and
 we as a consumer must be ready to handle it. There is nothing wrong with this
 Response at all.
 
-_Now since we've seen duplicate entries in different Responses and complete
- duplication of full Responses, we can easily understand that a consumer
+_Now since we've seen duplicate entries in different responses and complete
+ duplication of full a Response, we can easily understand that a consumer
  implementation cannot just keep a list. It would suffice to use a set, and
- any duplicates will only be kept in one entry._
+ any duplicate entries will only be kept once._
 
 #### So, what's in the library?
 
@@ -203,8 +203,8 @@ service calls:
 > `Bookshelf` service, which needs to call the `Library` for the list. The
 > `Library` service aggregates all sci-fi books by calls to 2 configured
 > services: `Top-3` and `Asimov`. Only after both service calls return, can
-> the `Library` respond the user `Bookshelf` and the User is presented with
-> the list of sci-fi books.
+> the `Library` respond to the `Bookshelf` and the User is presented with
+> a list of sci-fi books.
 
 In this type of system, not only are the calls aggregated in time, effectively
 forcing the user to wait until all calls return, but also to the availability
@@ -214,5 +214,4 @@ making it highly probable that viewing the list of books will fail.
 _There are many ways to work towards better and more resilient solutions, with
  the synchronous solution as a starting point. I'm not trying to say that it is
  the wrong model. The point I'm trying to make, is the very different way of
- thinking the Query/Response pattern forces us into from the start._
-
+ thinking that the Query/Response pattern forces us into from the start._
