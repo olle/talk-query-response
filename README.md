@@ -1,5 +1,5 @@
-Query/Response
-==============
+WIP: Query/Response
+===================
 
 **A messaging protocol for evolutionary architectures.**
 
