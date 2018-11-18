@@ -16,6 +16,7 @@ Table of Contents
   * [So what's in the library](#so-whats-in-the-library)
 - [Inversion of flow](#inversion-of-flow)
 - [Specification](#specification)
+  - [Intent](#intent)
   - [Components and Collaborators](#components-and-collaborators)
       + [Publisher](#publisher)
       + [Consumer](#consumer)
@@ -243,15 +244,28 @@ Specification
 -------------
 
 We will attempt to describe the Query/Response pattern in a more formal way,
-but without any claim of conformance to other standards or rules. This is a
-pattern derived from the idea of expressing a _need_, and formed into a
-specific variant in our Query/Response protocol. It is just our particular
+but without any claim of conformance to other standards or rules.
+
+This is a pattern derived from the much greater, or wider, idea of expressing
+a _need_ or _demand_, as previously told. It is shaped here, into our specific
+version, in the **Query/Response** protocol. This is just our particular
 _flavour_ of inversion of flow and asynchronous message based communication.
-Take what you like, leave the rest, and extend as you seem fit.
+
+Please, take what you like, leave the rest, and extend as you seem fit.
 
 _We try to adhere to [RFC 2119][3010] when using the keywords: "MUST",
  "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
  "RECOMMENDED",  "MAY", and "OPTIONAL"._
+
+### Intent
+
+The Query/Response pattern, described here, aims to support communication
+and information sharing, in distributed systems. It does so by firmly trying
+to decouple system actors, by establishing an asynchronous, message based, high-level, exchange protocol.
+
+We currently only strive to describe a shared structure, and a sequence of
+communication, to provide a small set of rules, which can be authoritative
+to implementors and developers using the pattern.
 
 ### Components and Collaborators
 
