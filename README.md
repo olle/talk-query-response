@@ -166,7 +166,7 @@ and no responses arrive at once. What should we do?
 This is not a flaw in the design, but a specific part of the Query/Response
 pattern. It is always up to the _consumer of responses_ (the one that sent
 the Query to begin with), to decide how long it will continue to wait for,
-or read, responses. The protocol gives no guarantees at all.
+or read, responses. The pattern gives no guarantees at all.
 
 There may be responses. There might be none, just a single one or a huge
 amount. This is by design, and it forces us to think about important
@@ -193,7 +193,7 @@ published address.
       "I, Robot"
 
 Hey, what's this! We now receive the same response and body payload, as
-before. This is still not a problem, nor a failure in the protocol. It is
+before. This is still not a problem, nor a failure in the pattern. It is
 not possible to deter multiple responses, even from the same Publisher, and
 we as a consumer must be ready to handle it. There is nothing wrong with this
 Response at all.
@@ -255,7 +255,7 @@ but without any claim of conformance to other standards or rules.
 
 This is a pattern derived from the much greater, or wider, idea of expressing
 a _need_ or _demand_, as previously told. It is shaped here, into our specific
-version, in the **Query/Response** protocol. This is just our particular
+version, in the **Query/Response pattern**. This is just our particular
 _flavour_ of inversion of flow and asynchronous message based communication.
 
 Please, take what you like, leave the rest, and extend as you seem fit.
@@ -268,7 +268,8 @@ _We try to adhere to [RFC 2119][3010] when using the keywords: "MUST",
 
 The Query/Response pattern, described here, aims to support communication
 and information sharing, in distributed systems. It does so by firmly trying
-to decouple system actors, by establishing an asynchronous, message based, high-level, exchange protocol.
+to decouple system actors, by establishing an asynchronous, message based, 
+high-level, exchange pattern.
 
 We currently only strive to describe a shared structure, and a sequence of
 communication, to provide a small set of rules, which can be authoritative
@@ -392,7 +393,7 @@ The Query-Consumer SHOULD handle Queries with an intent to _do what is right_.
 In most cases this would mean that Query-Consumers handle queries which they
 are capable of providing responses for.
 
-_Please note that the Query/Response protocol does not protect against
+_Please note that the Query/Response pattern does not protect against
 Query-Consumers with harmful intent. Implementations should consider issues
 like security, encryption and trust as extensions to it._
 
