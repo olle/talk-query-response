@@ -70,23 +70,23 @@ simple.
     query: books.sci-fi
     reply-to: library/books.sci-fi#42
 
-The structure above captures all the basic components that a Query should
+The structure above captures all the basic components that a query should
 communicate. The term `books.sci-fi` expresses the published _need_, and we
 can easily understand that it's a _request_ for science fiction books.
 
-_The dot-notation is not at all required, the Query can use any syntax that
+_The dot-notation is not at all required, the query can use any syntax that
 fits the platform or programming language._
 
-The Query has an Address where responses should be sent to:
+The query has an address where responses should be sent to:
 `library/books.sci-fi#42`. This is really important, not only in order to
-receive responses, but also to avoid coupling the sender to the Query. We
-don't need to state who's publishing the Query. The `reply-to` is just an
-Address, a location or _mailbox_ that can be used for responses.
+receive responses, but also to avoid coupling the sender to the query. We
+don't need to state who's publishing the query. The `reply-to` is just an
+address, a location or _mailbox_ that can be used for replies.
 
-The Address is only for this particular Query, and it is made to be unique.
+The address is only for this particular query, and it is made to be unique.
 In this example `library/books.sci-fi#42` describes a topic `library`, and
-then the unique mailbox or queue for the Query with a hash-code 
-`books.sci-fi#42`, separated by a slash `/`.
+then the unique mailbox or queue for the query with a hash-code
+`books.sci-fi#42`.
 
 #### The current top-3 books
 
