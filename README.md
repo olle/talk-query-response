@@ -307,7 +307,7 @@ Expressions or terms within a domain specific, or ubiquitous language, are
 commonly used to communicate the intent of the Query. It is not uncommon to
 use dot-notation or some syntax with brevity, like: `product.images.4123`
 or `scores.today.highscores`. This is an example of structure and parameters,
-an API build into the Query - this is an accepted pattern and style within
+an API built into the Query - this is an accepted pattern and style within
 the Query/Response pattern itself.
 
 The Query MUST specify an Address for responses, which SHOULD be appropriate
@@ -316,7 +316,7 @@ for consumption.
 #### `Response`
 
 A message or notification that is published as a response to a previously
-published Query. The Response SHOULD NOT be sent without a distinct Query being
+published Query. The Response MUST NOT be sent without a distinct Query being
 seen (use normal event notifications for that instead). The Response is not
 strictly bound to the time frame of the Query. Nevertheless, it is not
 recommended to publish a Response outside of the time-window, or cadence, that
@@ -324,7 +324,7 @@ the given problem domain has.
 
 For example, a Response within shipping and logistics may still be of interest
 after several minutes of seeing a Query. In online-trading, responses older
-than seconds, from the time of the Query, may be of no value at all.
+than seconds, from the time of the Query, are of no value at all.
 
 The Response MUST be designated to the Address of the Query it responds to,
 the correlation must be specific to comparability or equality. In most cases
@@ -340,7 +340,7 @@ required to assert the received information, for validity and usefulness.
 #### `Address`
 
 Describes and designates a _context_, most commonly manifested by a point of
-delivery, a mailbox or place for delivery of a notification or message.
+delivery, a mailbox, queue or place to send notifications or messages.
 
 The Address MUST NOT describe a system actor or collaborator, but rather a
 resource or function that silently accepts information. The Address SHOULD
