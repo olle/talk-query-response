@@ -139,20 +139,22 @@ guarantee that the information received is valid, well formed or not malicious.
 We have to consume, convert and validate with great care. The decoupling in
 the Query/Response patter has a price, and this is one part of it.
 
-_But is a published REST endpoint, handling POST requests, that much better
- then? I would argue that we still have the same requirements. Being able to
- handle requests liberally. We must always convert and validate, with great
- care. But we are coupling the client and server to each other and, what is
- perhaps even worse, we're actually asking the client to control the
- imperative writing of information in the server._
+_But is a published REST-endpoint, for POST requests, that much better? I
+ would argue that we still have the same requirements. To be able to handle
+ requests liberally, we have to convert and validate, with great care. But
+ we are coupling the client and server to each other and, what is perhaps
+ even worse, we're actually allowing the client to control the writing of
+ information inside the server. We have at least surrendered to that model
+ of thinking. The POST is a write operation!_
 
-_To think about who's controlling the write operation, is a tremendously
- powerful concept, in my view. And, arguably, the further away we can push
- this from the actual act of writing, the less we need to think about the
- complexity of both collaborators at once. This is of course the essence
- of messaging. We could still achieve this with the REST endpoint, but it
- is a lot harder to avoid thinking about the effect of the returned response
- from the POST request. Even if it is empty or `void`._
+_To really think, and reason, about who's controlling a write operation, can
+ be a very powerful concept, in my view. And, arguably, the further away we
+ can push this authority from the actual, internal, act of writing, the less
+ we need to think about the complexity of both collaborators at once. This is
+ of course the essence of messaging. We could still achieve this with the REST
+ endpoint, but it would say that it is a lot harder to avoid thinking about
+ the effect of the returned response from the POST request. Even if it is
+ empty. We are caught in a lock-step or imperative model._
 
   [5010]: https://en.wikipedia.org/wiki/Robustness_principle
 
