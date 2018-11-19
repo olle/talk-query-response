@@ -62,8 +62,8 @@ A simple example
 Let's learn about the Query/Response pattern by walking through a small
 fictional example (no pun intended). The technical context is _messaging_ and
 hints at some type of broker-based setup - in theory though, any asynchronous
-communication can be used. I'll only use simple text-based pseudo-formats for
-data.
+communication could be used. Any example data are just plain-text, to keep it
+simple.
 
 ### Any good sci-fi books out there?
 
@@ -72,25 +72,21 @@ data.
 
 The structure above captures all the basic components that a Query should
 communicate. The term `books.sci-fi` expresses the published _need_, and we
-easily understand that it's a _request_ for science fiction books.
+can easily understand that it's a _request_ for science fiction books.
 
 _The dot-notation is not at all required, the Query can use any syntax that
 fits the platform or programming language._
 
-In the published Query we've made sure to add an _address_ or designation,
-where responses should be sent: `library/books.sci-fi#42`. This is really
-important, not only in order for information to arrive at the right place,
-but we also want to avoid coupling the sender to the Query. We don't need to
-state who's publishing the Query. The `reply-to` _address_, therefore, is
-simply just that: an address, a place, a location or _mailbox_ that we can
-send responses to.
+The Query has an Address where responses should be sent to:
+`library/books.sci-fi#42`. This is really important, not only in order to
+receive responses, but also to avoid coupling the sender to the Query. We
+don't need to state who's publishing the Query. The `reply-to` is just an
+Address, a location or _mailbox_ that can be used for responses.
 
-In our example we've provided the address `library/books.sci-fi#42`. We have
-made it unique for our specific query, with the label or key (overly
-simplified here). The term `books.sci-fi#42` is only used for responses to
-our specific Query. Furthermore we are not required to _keep_ or guarantee
-the existence of the given address for any specified time, more about that
-later.
+The Address is only for this particular Query, and it is made to be unique.
+In this example `library/books.sci-fi#42` describes a topic `library`, and
+then the unique mailbox or queue for the Query with a hash-code 
+`books.sci-fi#42`, separated by a slash `/`.
 
 #### The current top-3 books
 
