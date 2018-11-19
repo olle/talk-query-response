@@ -110,9 +110,9 @@ _address_ instead of a reply to the _sender_. More about this later.
 
 #### The Asimov collection
 
-Now, since our Query is published as a notification, and since we're not bound
-to a single reply, we can simply keep on consuming any Response sent back
-to the provided address.
+Since our query was published as a notification, we're not bound to a single
+reply. We can keep on consuming any number of responses that are sent to the
+address we published.
 
     response: library/books.sci-fi#42
     body:
@@ -120,17 +120,24 @@ to the provided address.
       "The Gods Themselves"
       "Pebble in the Sky"
 
-In this payload we receive a list of book titles which all have the same
-author. One of the entries was already in the first Response we received.
-This is of course not a problem, and it shows us something important. The
-consumer of a Response will have to assert the value of the received
-information, and decide how to handle it.
+In this response we received a list of book titles which all have the same
+author. The previous was a list with popular books. This reply even has one
+entry which was already in the first response we received.
 
-In this sense [Postel's Law][5010] applies, information should be liberally
-handled (interpreted), but publishing information should better be done with
-strict rules. As a consumer of replies we can never be certain of a strict
-conformity of the payload information - the model of decoupling has a price,
-and this is it.
+This is of course not a problem, and it shows us a couple of important things.
+Responses may come from different sources and contexts. This means that the
+consumer of a response will have to assert the value or _usefulness_ of the
+received information, and decide how to handle it.
+
+_The structure of a response should of course conform to some common, agreed
+ upon, format or data-shape. More on this later._
+
+This is where we can understand that [Postel's Law][5010] applies. Information
+should be liberally handled (interpreted), but publishing should be done with
+more care and strictness. As a consumer of responses we just can't have a
+guarantee that the information received is valid, well formed or not malicious.
+We have to consume, convert and validate with great care. The decoupling in
+the Query/Response patter has a price, and this is one part of it.
 
 _But is a published REST endpoint, handling POST requests, that much better
  then? I would argue that we still have the same requirements. Being able to
