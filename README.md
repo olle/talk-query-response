@@ -67,6 +67,8 @@ simple.
 
 ### Any good sci-fi books out there?
 
+Let's publish a query.
+
     query: books.sci-fi
     reply-to: library/books.sci-fi#42
 
@@ -92,21 +94,19 @@ then the unique mailbox or queue for the query with a hash-code
 
     response: library/books.sci-fi#42
     body:
-      Neuromancer
-      Snow Crash
-      I, Robot
+      "Neuromancer"
+      "Snow Crash"
+      "I, Robot"
 
-We're in luck, we've got a response! The information above represents a
-Response to the Query we published. It is directed back to the address from
-the Query, and carries a body or payload of information which may be of
-interest to the Query publisher.
+We're in luck. We got a response! The information above represents a response
+to the query we published. It's sent to the address from the query, and carries
+a body or payload of information which may be of interest to us.
 
-The response does not have to convey its publisher, which allows us to reason
-about exchange of information without the notion of _"A sends a query to B,
-which in turn sends a responds to A"_. We are ensuring decoupling of the
-collaborators by having the pattern allow for an _optional_ Response to the
-provided _address_, rather than a required reply to the _sender_. More about
-that later.
+The response does not have to say who it's from. This allows us to think about
+exchange of information, without the notion of: _"A sends a request to B,
+which responds to A"_. We are making sure that the services are decoupled from
+each other, by letting the response be an _optional_ message, sent to the 
+_address_ instead of a reply to the _sender_. More about this later.
 
 #### The Asimov collection
 
@@ -116,9 +116,9 @@ to the provided address.
 
     response: library/books.sci-fi#42
     body:
-      I, Robot
-      The Gods Themselves
-      Pebble in the Sky
+      "I, Robot"
+      "The Gods Themselves"
+      "Pebble in the Sky"
 
 In this payload we receive a list of book titles which all have the same
 author. One of the entries was already in the first Response we received.
@@ -179,9 +179,9 @@ published address.
 
     response: library/books.sci-fi#42
     body:
-      Neuromancer
-      Snow Crash
-      I, Robot
+      "Neuromancer"
+      "Snow Crash"
+      "I, Robot"
 
 Hey, what's this! We now receive the same response and body payload, as
 before. This is still not a problem, nor a failure in the protocol. It is
@@ -207,11 +207,11 @@ successful scenario could arrive at the following Response being received.
 
     response: bookshelf/library.sci-fi#1337
     body:
-      Neuromancer
-      Snow Crash
-      I, Robot
-      The Gods Themselves
-      Pebble in the Sky
+      "Neuromancer"
+      "Snow Crash"
+      "I, Robot"
+      "The Gods Themselves"
+      "Pebble in the Sky"
 
 Just as expected.
 
