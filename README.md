@@ -59,10 +59,11 @@ _The **Query/Response pattern**, that I arrived at, challenges developers to
 A simple example
 ----------------
 
-Let's dive in and get to know the Query/Response pattern from a more practical
-point of view first. The protocol is first and foremost _message based_ but any
-asynchronous communication implementation can, in theory, be used. I'll present
-everything using pseudo-code and stupid-simple data structures only.
+Let's learn about the Query/Response pattern by walking through a small
+fictional example (no pun intended). The technical context is _messaging_ and
+hints at some type of broker-based setup - in theory though, any asynchronous
+communication can be used. I'll only use simple text-based pseudo-formats for
+data.
 
 ### Any good sci-fi books out there?
 
@@ -70,15 +71,14 @@ everything using pseudo-code and stupid-simple data structures only.
     reply-to: library/books.sci-fi#42
 
 The structure above captures all the basic components that a Query should
-communicate. The term `books.sci-fi` expresses the published _need_, and in
-our example we can quite easily understand that it's about books in the 
-genre or category science fiction.
+communicate. The term `books.sci-fi` expresses the published _need_, and we
+easily understand that it's a _request_ for science fiction books.
 
 _The dot-notation is not at all required, the Query can use any syntax that
 fits the platform or programming language._
 
-In the published Query we've made sure to add an _address_ or designation as
-to where responses should be directed `library/books.sci-fi#42`. This is
+In the published Query we've made sure to add an _address_ or designation,
+where responses should be sent: `library/books.sci-fi#42`. This is really
 important, not only in order for information to arrive at the right place,
 but we also want to avoid coupling the sender to the Query. We don't need to
 state who's publishing the Query. The `reply-to` _address_, therefore, is
