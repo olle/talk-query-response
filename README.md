@@ -147,9 +147,9 @@ _But is a published REST-endpoint, for POST requests, that much better? I
  information inside the server. We have at least surrendered to that model
  of thinking. The POST is a write operation!_
 
-_To really think, and reason, about who's controlling a write operation, can
- be a very powerful concept, in my view. And, arguably, the further away we
- can push this authority from the actual, internal, act of writing, the less
+_To really think and reason about who's controlling the write operation, can
+ be a very powerful concept in my view. And arguably, the further away we
+ can push this authority from the actual, internal act of writing, the less
  we need to think about the complexity of both collaborators at once. This is
  of course the essence of messaging. We could still achieve this with the REST
  endpoint, but it would say that it is a lot harder to avoid thinking about
