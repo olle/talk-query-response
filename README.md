@@ -1,7 +1,7 @@
 WIP: Query/Response
 ===================
 
-**A messaging protocol for evolutionary architectures.**
+**A messaging pattern for autonomous services and evolutionary architectures.**
 
 Table of Contents
 -----------------
