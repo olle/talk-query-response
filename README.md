@@ -41,17 +41,16 @@ _In his talk George lands at the question "Synchronous or Asynchronous?" and
  proceeds to describe, what he calls, the "Needs Pattern". Service A would,
  instead of calling service B, publish a request, and service B would be able
  to pick it up and send back a response. After hearing this I began to think
- a lot about the effects of moving to an asynchronous way of communicating
- with services. There was clearly a lot more here than just decoupling
- services from each other temporally, and from knowing about each others
- locations._
+ a lot about the effects of moving to an asynchronous way of communication
+ between services. There was clearly a lot more here than just decoupling
+ service endpoints and call latencies. Something more profound._
 
-_The Query/Response pattern, that I arrived at, challenges developers to really
- think hard about responsibility and autonomy in architecture and design. It
- gives very few guarantees (almost none actually), which will force decisions
- about Service Level Objectives, or [SLAs][1030], as well as resilience and
- availability, at a much earlier stage in the design and development process.
- It literally turns things around, which we will see._
+_The **Query/Response pattern**, that I arrived at, challenges developers to
+ really think hard about responsibility and autonomy in architecture and
+ design. It gives very few guarantees (almost none actually), which will force
+ decisions about [Service Level Objectives (SLA)][1030], as well as
+ resilience and availability, at a much earlier stage in the design and
+ development process. It literally turns things around, which we will see._
 
   [1010]: https://twitter.com/fgeorge52
   [1020]: https://youtu.be/yPf5MfOZPY0
