@@ -544,7 +544,7 @@ is published again.
 
 And this time, the only consumed response with Asimov books is the following:
 
-    response: library/books.sci-fi#77
+    response: library/books.sci-fi#88
     body:
       "I, Robot" stars:3
       "The Gods Themselves" stars:3
