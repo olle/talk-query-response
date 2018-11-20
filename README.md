@@ -454,10 +454,10 @@ system.
 ### A better library protocol
 
 We have agreed on supporting _stars_ for book ratings, and different teams
-scramble to their stations to extend for the new features.
+scramble to their stations to extend for the new feature.
 
 We saw earlier that data returned was formed as a list of quoted strings, and
-the contract for parsing was: `first quoted string per line is book title`.
+the contract for parsing was: "first quoted string per line is book title".
 
     ...
     body:
@@ -465,8 +465,7 @@ the contract for parsing was: `first quoted string per line is book title`.
     ...
 
 That rule and the capability to extend it, made it possible to agree on a new
-optional format: `trailing color-separated key-values are properties`. For
-example:
+optional format: "trailing key-values are properties". For example:
 
     ...
     body:
