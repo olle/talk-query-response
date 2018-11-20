@@ -444,7 +444,7 @@ The list of strings within quotes are not by accident, it is also by design.
 The Query/Response pattern does not enforce any structural rules for query,
 address or response syntax. This must come from designers and developers. _I
 would suggest, using [Domain Driven Design][8010] to leverage the power of
-a ubiquitous language in the queries.
+a ubiquitous language in the queries_.
 
 All this together puts us in a position to allow change and evolution in our
 system.
