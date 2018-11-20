@@ -24,7 +24,11 @@ Table of Contents
       + [Response](#response)
       + [Address](#address)
   - [Methods and Actions](#methods-and-actions)
-- [The example revisited](#the-example-revisisted)
+- [The example revisited](#the-example-revisited)
+  * [A better library protocol](#a-better-library-protocol)
+  * [Top-3 books have stars](#top3-books-have-stars)
+  * [One of each flavour](#one-of-each-flavour)
+  * [Out with the old](#out-with-the-old)
 
 Foreword
 --------
