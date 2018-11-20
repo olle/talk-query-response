@@ -67,8 +67,8 @@ A simple example
 Let's learn about the Query/Response pattern by walking through a small
 fictional example (no pun intended). The technical context is _messaging_ and
 hints at some type of broker-based setup - in theory though, any asynchronous
-communication could be used. Any example data are just plain-text, to keep it
-simple.
+communication could be used. The examples are only pseudo-code and plain-text
+data, to keep things simple.
 
 ### Any good sci-fi books out there?
 
@@ -84,7 +84,7 @@ can easily understand that it's a _request_ for science fiction books.
 _The dot-notation is not at all required, the query can use any syntax that
 fits the platform or programming language._
 
-The query has an address where responses should be sent to:
+The query has an address where responses should be sent back to:
 `library/books.sci-fi#42`. This is really important, not only in order to
 receive responses, but also to avoid coupling the sender to the query. We
 don't need to state who's publishing the query. The `reply-to` is just an
@@ -137,9 +137,9 @@ received information, and decide how to handle it.
 _The structure of a response should of course conform to some common, agreed
  upon, format or data-shape. More on this later._
 
-This is where we can understand that [Postel's Law][5010] applies. Information
-should be liberally handled (interpreted), but publishing should be done with
-more care and strictness. As a consumer of responses we just can't have a
+Considering all this, we need to remember [Postel's Law][5010]. Information
+should be liberally handled (interpreted), but publishing should be done
+more conservatively. As a consumer of responses we just can't have a
 guarantee that the information received is valid, well formed or not malicious.
 We have to consume, convert and validate with great care. The decoupling in
 the Query/Response patter has a price, and this is one part of it.
@@ -157,7 +157,7 @@ _To really think and reason about who's controlling the write operation, can
  can push this authority from the actual, internal act of writing, the less
  we need to think about the complexity of both collaborators at once. This is
  of course the essence of messaging. We could still achieve this with the REST
- endpoint, but it would say that it is a lot harder to avoid thinking about
+ endpoint, but I would say that it is a lot harder to avoid thinking about
  the effect of the returned response from the POST request. Even if it is
  empty. We are caught in a lock-step or imperative model._
 
@@ -165,25 +165,24 @@ _To really think and reason about who's controlling the write operation, can
 
 ### No book lovers out there?
 
-Let's rewind the scenario a bit. Let's say we've just published the Query,
-and no responses arrive at once. What should we do?
+Let's rewind the scenario a bit. Let's say we've just published the query,
+but no responses arrive. What should we do?
 
 This is not a flaw in the design, but a specific part of the Query/Response
-pattern. It is always up to the _consumer of responses_ (the one that sent
-the Query to begin with), to decide how long it will continue to wait for,
-or read, responses. The pattern gives no guarantees at all.
+pattern. It is always up to the consumer of responses (the one that sent
+the query), to decide _how long_ it will continue to wait for, or read
+responses. The pattern does not force this or make any promises.
 
-There may be responses. There might be none, just a single one or a huge
-amount. This is by design, and it forces us to think about important
-questions, early in development. Fallback values, proper defaults, circuit-
-breakers and how to deal with a flood of responses.
+There might be responses. There may be none, a single one or a huge amount.
+This is by design, and it forces us to think about important questions, early
+in development. Fallback values, proper defaults, circuit-breakers and how
+to deal with a flood of responses.
 
-_The most commonly asked question from developers new to the Query/Response
- pattern is: "But what if there's no response, I have to return something to
- the user?". Exactly, plan for that, this is something that should be
- considered early in design and development. There might very well be a
- Response, eventually, but how long is it then ok to have the user wait for
- a result?_
+_The most commonly asked question, by developers new to the Query/Response
+ pattern, is: "But what if there are no responses, what do I show the user?".
+ Exactly! Plan for that. This is something that should be considered early
+ in design and development. There might very well be a response, eventually,
+ but how long do you let the user wait for a result?_
 
 ### Reprise, surprise
 
@@ -197,27 +196,26 @@ published address.
       "Snow Crash"
       "I, Robot"
 
-Hey, what's this! We now receive the same response and body payload, as
-before. This is still not a problem, nor a failure in the pattern. It is
-not possible to deter multiple responses, even from the same Publisher, and
-we as a consumer must be ready to handle it. There is nothing wrong with this
-Response at all.
+Hey, what's this! We now received the same response and body payload, as
+before. This is still not a problem, and it's not a flaw in the pattern. It
+is not possible to avoid multiple responses, even from the same publisher. As
+a consumer, we have to be ready to handle it. There is nothing wrong with this
+response at all.
 
-_Now since we've seen duplicate entries in different responses and complete
- duplication of full a Response, we can easily understand that a consumer
- implementation cannot just keep a list. It would suffice to use a set, and
- any duplicate entries will only be kept once._
+_The consumer must handle this, and can't keep the entries in a simple list. If
+ we did, it would contain several duplicate entries. It would be enough to use
+ a set instead, so any duplicate entries would only be kept once._
 
 ### So, what's in the library?
 
-Now let's see what we have.
+Let's see what we have.
 
     query: library.sci-fi
     reply-to: bookshelf/library.sci-fi#1337
 
-A new Query is published and we understand the `query` term to mean that
-there's a _need_ or interest in knowing what books are in the library. A
-successful scenario could arrive at the following Response being received.
+A new query is published and we understand the `query` term to mean that
+there's a _need_ or interest in knowing what books there are in the library.
+A successful scenario could arrive at the following response being consumed.
 
     response: bookshelf/library.sci-fi#1337
     body:
@@ -235,22 +233,23 @@ What we've seen in this example scenario is actually an inversion of what
 could have been implemented as a tightly coupled, chained set of synchronous
 service calls:
 
-> A User whishes to view a list of science fiction books through the
+> A user whishes to view a list of science fiction books through the
 > `Bookshelf` service, which needs to call the `Library` for the list. The
 > `Library` service aggregates all sci-fi books by calls to 2 configured
 > services: `Top-3` and `Asimov`. Only after both service calls return, can
-> the `Library` respond to the `Bookshelf` and the User is presented with
+> the `Library` respond to the `Bookshelf` and the user is presented with
 > a list of sci-fi books.
 
-In this type of system, not only are the calls aggregated in time, effectively
-forcing the user to wait until all calls return, but also to the availability
-and fault-tolerance of each service. This accumulates at the point of the user,
+In this type of system, not only are the calls aggregated in the total time,
+effectively forcing the user to wait until all calls return, but also to the
+availability of each service. This accumulates at the point of the user,
 making it highly probable that viewing the list of books will fail.
 
-_There are many ways to work towards better and more resilient solutions, with
- the synchronous solution as a starting point. I'm not trying to say that it is
- the wrong model. The point I'm trying to make, is the very different way of
- thinking that the Query/Response pattern forces us into from the start._
+_There are many ways to work towards better and more resilient solutions, also
+ in the synchronous solution. I'm not trying to say that it is the wrong
+ model. The point I'm trying to make, is the very different way of thinking
+ that the Query/Response pattern forces us into from the start. Availability,
+ fallbacks, resilience and strict timeouts are called out as key-concepts._
 
 Specification
 -------------
