@@ -258,13 +258,12 @@ _I hope this illustrates what's possible using this approach and that I've
 Specification
 -------------
 
-I would now like to try and describe the Query/Response pattern in a more
-formal but not too strict way, since it's not in any way some type of
-_standard_ or _protocol_. This is a pattern derived from the general idea
-of expressing a _need_ or _demand_, as previously told. It is shaped here, 
-into a specific version, or flavour, in the **Query/Response pattern**. It
-simply contains my recommendations and suggestions on rules or principles to
-follow.
+I'd like to describe the Query/Response pattern in a more formal but not
+too strict way, since it's not in any way some type of _standard_ or
+_protocol_. This is a pattern derived from the general idea of expressing a 
+_need_ or _demand_, as previously told. It is shaped here, into a specific
+version, or flavour, in the **Query/Response pattern**. It simply contains
+my recommendations and suggestions on rules or principles to follow.
 
 Please, take what you like, leave the rest, and extend as you seem fit.
 
@@ -285,25 +284,33 @@ pattern.
 
 ### Components and Collaborators
 
-| Name         | Type        |
-|--------------|-------------|
-| `Query`      | message     |
-| `Response`   | message     |
-| `Address`    | reference   |
-| `Publisher`  | actor       |
-| `Consumer`   | actor       |
+| Name         | Type        | Notes                               |
+|--------------|-------------|-------------------------------------|
+| `Query`      | message     | Very small, published notification. | 
+| `Response`   | message     | Carries information as payload.     |
+| `Address`    | location    | Reference to "a mailbox"            |
+| `Publisher`  | actor       | Both query- & response-publisher.   |
+| `Consumer`   | actor       | Both query- & response-consumer.    |
 
 #### `Query`
 
 A notification that expresses a specific _need_ or _whish_, which can be
 fulfilled by a response, published to a specified return address.
 
-The query MAY use any suitable syntax, semantic or language, to express the
-need. Most commonly a simple string or term is used, similarly to a message
-name, subject or an event _routing-key_.
+The query MUST state its _need_ or _which_ in a interpretable way. It may use
+any suitable syntax, semantics or language, to express the need. Most commonly
+a simple string or term is used, similarly to a message name, subject or
+an event _routing-key_.
 
 A query MUST specify an address for responses, which SHOULD be appropriate and
 working, as the query is created.
+
+Example:
+
+    {
+        "query": "battery status",
+        "reply-to": "iot/sensors.42232"
+    }
 
 _I very much recommend creating queries with expressions or terms from a
  domain specific, or ubiquitous language. This allows for broader understanding
