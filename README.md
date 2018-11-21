@@ -285,6 +285,14 @@ pattern.
 
 ### Components and Collaborators
 
+| Name         | Type        |
+|--------------|-------------|
+| `Query`      | message     |
+| `Response`   | message     |
+| `Address`    | reference   |
+| `Publisher`  | actor       |
+| `Consumer`   | actor       |
+
 #### `Query`
 
 A notification that expresses a specific _need_ or _whish_, which can be
@@ -302,29 +310,6 @@ _I very much recommend creating queries with expressions or terms from a
  and involvement of stakeholders. Keeping queries human readable makes sense.
  It's often desirable to use structured terms, with semantics, such as
  filters or parameters. This is quite common and not at all bad._
- 
-#### `Publisher`
-
-The active component, service or collaborator, with the capacity to publish or
-broadcast a notification or message, for other to _see_.
-
-We like to avoid binding the Query/Response pattern to any specific transport
-layer, but some form of _messaging_ SHOULD be available to the Publisher.
-
-A Publisher MUST NOT be required to know about any Consumers (see below).
-
-There are two types of publishers, the Query- and the Response-Publisher.
-
-#### `Consumer`
-
-An active component, service or collaborator, with the capacity to, on its own
-initiative, read notifications or messages of its choice. The consumer SHALL
-willingly _subscribe_ to these notifications.
-
-A Consumer MUST NOT be required to know about any Publishers.
-
-There are naturally also two types of consumers, the Query- and the
-Response-Consumer.
 
 #### `Response`
 
@@ -364,6 +349,31 @@ routing key, topic or queue-name.
 
   [3010]: https://www.ietf.org/rfc/rfc2119.txt
   [3050]: https://www.rabbitmq.com/specification.html
+
+
+#### `Publisher`
+
+The active component, service or collaborator, with the capacity to publish or
+broadcast a notification or message, for other to _see_.
+
+We like to avoid binding the Query/Response pattern to any specific transport
+layer, but some form of _messaging_ SHOULD be available to the Publisher.
+
+A Publisher MUST NOT be required to know about any Consumers (see below).
+
+There are two types of publishers, the Query- and the Response-Publisher.
+
+#### `Consumer`
+
+An active component, service or collaborator, with the capacity to, on its own
+initiative, read notifications or messages of its choice. The consumer SHALL
+willingly _subscribe_ to these notifications.
+
+A Consumer MUST NOT be required to know about any Publishers.
+
+There are naturally also two types of consumers, the Query- and the
+Response-Consumer.
+
 
 ### Methods and Actions
 
