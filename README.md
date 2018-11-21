@@ -271,6 +271,8 @@ Use of the keywords: "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" are intended
 to follow the definitions of [RFC 2119][3010].
 
+  [3010]: https://www.ietf.org/rfc/rfc2119.txt
+
 ### Intent
 
 The Query/Response pattern aims to describe a model for information sharing
@@ -330,43 +332,35 @@ _In most cases it's desirable to publish a response as quick as possible,
 
 #### `Address`
 
-Describes and designates a _context_, most commonly manifested by a point of
-delivery, a mailbox, queue or place to send notifications or messages.
+Describes and designates an addressable _location_ with the capability to
+receive and handle responses. Typically a messaging _mailbox_ or a queue.
 
-The Address MUST NOT describe a system actor or collaborator, but rather a
-resource or function that silently accepts information. The Address SHOULD
-act as a decoupling device between a Publisher and a Consumer.
+The address MUST NOT describe a system actor or collaborator, but instead
+ensure decoupling between a publisher and a consumer.
 
-Commonly, in messaging or broker based systems, an Address is typically a
-routing key, topic or queue-name.
-
-  [3010]: https://www.ietf.org/rfc/rfc2119.txt
-  [3050]: https://www.rabbitmq.com/specification.html
-
+_In messaging or broker based systems, the address is typically a routing key,
+ topic or a queue-name._
 
 #### `Publisher`
 
-The active component, service or collaborator, with the capacity to publish or
-broadcast a notification or message, for other to _see_.
+An actor that initiates the publishing of a notification, either a query or
+a response depending on its current role.
 
-We like to avoid binding the Query/Response pattern to any specific transport
-layer, but some form of _messaging_ SHOULD be available to the Publisher.
+The publisher MUST NOT be responsible for the arrival of any published
+information. 
 
-A Publisher MUST NOT be required to know about any Consumers (see below).
+Publishers MUST NOT know any consumers.
 
-There are two types of publishers, the Query- and the Response-Publisher.
+_It is open for the implementation of the Query/Response pattern to solve or
+ choose how it ensures delivery of messages, e.g. using a broker- or queue-
+ based messaging system or some other solution for asynchronous communication._
 
 #### `Consumer`
 
-An active component, service or collaborator, with the capacity to, on its own
-initiative, read notifications or messages of its choice. The consumer SHALL
-willingly _subscribe_ to these notifications.
+An actor that willingly yields to the consumption of notifications, from some
+external source, either a response or a query depending on its current role.
 
-A Consumer MUST NOT be required to know about any Publishers.
-
-There are naturally also two types of consumers, the Query- and the
-Response-Consumer.
-
+Consumers MUST NOT know any publishers.
 
 ### Methods and Actions
 
