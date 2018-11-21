@@ -170,8 +170,8 @@ but no responses arrive. What should we do?
 
 This is not a flaw in the design, but a specific part of the Query/Response
 pattern. It is always up to the consumer of responses (the one that sent
-the query), to decide _how long_ it will continue to wait for, or read
-responses. The pattern does not force this or make any promises.
+the query), to decide _how long_ it will continue to read, or wait for any to
+arrive at all. The pattern does not force this or make any promises.
 
 There might be responses. There may be none, a single one or a huge amount.
 This is by design, and it forces us to think about important questions, early
@@ -214,8 +214,8 @@ Let's see what we have.
     reply-to: bookshelf/library.sci-fi#1337
 
 A new query is published and we understand the `query` term to mean that
-there's a _need_ or interest in knowing what books there are in the library.
-A successful scenario could arrive at the following response being consumed.
+there's an _interest_ in knowing what books are in the library. A successful
+scenario could arrive at the following response being consumed.
 
     response: bookshelf/library.sci-fi#1337
     body:
@@ -236,7 +236,7 @@ service calls:
 > A user whishes to view a list of science fiction books through the
 > `Bookshelf` service, which needs to call the `Library` for the list. The
 > `Library` service aggregates all sci-fi books by calls to 2 configured
-> services: `Top-3` and `Asimov`. Only after both service calls return, can
+> services: `Top-3` and `Authors`. Only after both service calls return, can
 > the `Library` respond to the `Bookshelf` and the user is presented with
 > a list of sci-fi books.
 
@@ -251,36 +251,58 @@ _There are many ways to work towards better and more resilient solutions, also
  that the Query/Response pattern forces us into from the start. Availability,
  fallbacks, resilience and strict timeouts are called out as key-concepts._
 
+_I hope this illustrates what's possible using this approach and that I've
+ sparked at least som interest in the Query/Response pattern. Later I will
+ extend on some of the features and caveats._
+
 Specification
 -------------
 
-We will attempt to describe the Query/Response pattern in a more formal way,
-but without any claim of conformance to other standards or rules.
-
-This is a pattern derived from the much greater, or wider, idea of expressing
-a _need_ or _demand_, as previously told. It is shaped here, into our specific
-version, in the **Query/Response pattern**. This is just our particular
-_flavour_ of inversion of flow and asynchronous message based communication.
+I would now like to try and describe the Query/Response pattern in a more
+formal but not too strict way, since it's not in any way some type of
+_standard_ or _protocol_. This is a pattern derived from the general idea
+of expressing a _need_ or _demand_, as previously told. It is shaped here, 
+into a specific version, or flavour, in the **Query/Response pattern**. It
+simply contains my recommendations and suggestions on rules or principles to
+follow.
 
 Please, take what you like, leave the rest, and extend as you seem fit.
 
-_We try to adhere to [RFC 2119][3010] when using the keywords: "MUST",
- "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
- "RECOMMENDED",  "MAY", and "OPTIONAL"._
+Use of the keywords: "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" are intended
+to follow the definitions of [RFC 2119][3010].
 
 ### Intent
 
-The Query/Response pattern, described here, aims to support communication
-and information sharing, in distributed systems. It does so by firmly trying
-to decouple system actors, by establishing an asynchronous, message based, 
-high-level, exchange pattern.
+The Query/Response pattern aims to describe a model for information sharing
+in a distributed system. It does so by using strong decoupling of system
+actors and establishing asynchronous message-based high-level data exchange,
+as the only means of communication.
 
-We currently only strive to describe a shared structure, and a sequence of
-communication, to provide a small set of rules, which can be authoritative
-to implementors and developers using the pattern.
+The following specifications tries to provide a set of rules and guides, 
+which can be used as an authoritative source for developer, implementing the
+pattern.
 
 ### Components and Collaborators
 
+#### `Query`
+
+A notification that expresses a specific _need_ or _whish_, which can be
+fulfilled by a response, published to a specified return address.
+
+The query MAY use any suitable syntax, semantic or language, to express the
+need. Most commonly a simple string or term is used, similarly to a message
+name, subject or an event _routing-key_.
+
+A query MUST specify an address for responses, which SHOULD be appropriate and
+working, as the query is created.
+
+_I very much recommend creating queries with expressions or terms from a
+ domain specific, or ubiquitous language. This allows for broader understanding
+ and involvement of stakeholders. Keeping queries human readable makes sense.
+ It's often desirable to use structured terms, with semantics, such as
+ filters or parameters. This is quite common and not at all bad._
+ 
 #### `Publisher`
 
 The active component, service or collaborator, with the capacity to publish or
@@ -303,26 +325,6 @@ A Consumer MUST NOT be required to know about any Publishers.
 
 There are naturally also two types of consumers, the Query- and the
 Response-Consumer.
-
-#### `Query`
-
-A message or notification that expresses a specific _need_ or _whish_, which
-can be fulfilled through a later, at any time, published Response. No strict
-syntax is specified, rather the context, platform, transport layer and/or
-programming language, should guide users to a suitable format.
-
-Most typically a string or term is used, closely related to event names or
-message names (_routing key_).
-
-Expressions or terms within a domain specific, or ubiquitous language, are
-commonly used to communicate the intent of the Query. It is not uncommon to
-use dot-notation or some syntax with brevity, like: `product.images.4123`
-or `scores.today.highscores`. This is an example of structure and parameters,
-an API built into the Query - this is an accepted pattern and style within
-the Query/Response pattern itself.
-
-The Query MUST specify an Address for responses, which SHOULD be appropriate
-for consumption.
 
 #### `Response`
 
