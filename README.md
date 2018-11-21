@@ -289,8 +289,8 @@ pattern.
 | `Query`      | message     | Very small, published notification. | 
 | `Response`   | message     | Carries information as payload.     |
 | `Address`    | location    | Reference to "a mailbox"            |
-| `Publisher`  | actor       | For both query and response.        |
-| `Consumer`   | actor       | For both query and response.        |
+| `Publisher`  | actor       | Initiates _publish_ method calls.   |
+| `Consumer`   | actor       | Accepts _consume_ method calls.     |
 
 #### `Query`
 
@@ -304,13 +304,6 @@ term is used, similar to a message subject, -name or an event _routing-key_.
 A query MUST specify an address for responses, which SHOULD be _appropriate_
 for the stated query and, technically _available_, as the query is created.
 
-Example:
-
-    {
-      "query": "battery status",
-      "reply-to": "iot/sensors.42232"
-    }
-
 _I very much recommend creating queries with expressions or terms from a
  domain specific, or ubiquitous language. This allows for broader understanding
  and involvement of stakeholders. Keeping queries human readable makes sense.
@@ -319,27 +312,21 @@ _I very much recommend creating queries with expressions or terms from a
 
 #### `Response`
 
-A message or notification that is published as a response to a previously
-published Query. The Response MUST NOT be sent without a distinct Query being
-seen (use normal event notifications for that instead). The Response is not
-strictly bound to the time frame of the Query. Nevertheless, it is not
-recommended to publish a Response outside of the time-window, or cadence, that
-the given problem domain has.
+A notification, published, as a response to a query, optionally carrying an
+information- or data-payload. A response MUST NOT be sent without an intent to
+_answer_ a specific query (use event notifications for that).
 
-For example, a Response within shipping and logistics may still be of interest
-after several minutes of seeing a Query. In online-trading, responses older
-than seconds, from the time of the Query, are of no value at all.
+The response MUST be sent to the address of the query it responds to, without
+manipulating it.
 
-The Response MUST be designated to the Address of the Query it responds to,
-the correlation must be specific to comparability or equality. In most cases
-though, this will be implicit in the transport method. For example messaging
-over [AMQP][3050] uses a _routing key_, which is then given in the Query, as
-a `reply-to` property. A Response sent to that Address is then either routed
-correctly or dropped by the broker.
+A response SHOULD carry an appropriate information- or data-payload, with the
+intent to answer the query it responds to. Note that this is not a strict
+requirement.
 
-The Response SHOULD provide a body of information, such as a payload of data.
-Please note that this is not a strict requirement, and the Consumer is always
-required to assert the received information, for validity and usefulness.
+Responses SHOULD be sent within an appropriate time frame of seeing a query.
+
+_In most cases it's desirable to publish a response as quick as possible, 
+ after consuming a query._
 
 #### `Address`
 
