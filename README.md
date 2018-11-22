@@ -361,24 +361,21 @@ Consumers MUST NOT know any publishers.
 
 #### `Query-Publisher` prepares an `Address`
 
-If there's an intent to publish a Query, the Query-Publisher SHOULD ensure
-that there are suitable resources allocated to accommodate a specific
-Address for any responses to the Query.
+Before publishing a query, the query publisher SHOULD ensure that the
+specified address can be handled.
 
-It is left to the implementation to decide on the temporal binding between
-the _intent_ and the creation of resources. It may be that the only option is
-to use short-lived or temporary resources, which may or may not fail to be
-allocated. Therefore there's no strict requirement to ensure that the Address
-can be handled. It is assumed that a _best effort_ is made.
+_Implementations are free to use a best-effort approach. It may be that the
+only option is to use short-lived or temporary resources, which may or may
+not fail to be allocated. Therefore there's no strict requirement to ensure
+that the address can be handled._
 
 #### `Query-Publisher` publishes a `Query`
 
-At any time can any Query-Publisher choose to express a _need_ and publish
-a Query. No ACK or NACK will be provided and the Query-Publisher MUST NOT
-assume that the Query has been consumed, or that any Response will be
-returned, at this time.
+The query publisher can, at any time, choose to publish a query. No ACK or
+NACK will be provided and the query publisher MUST NOT assume that the query
+has been consumed, or that a response will be returned at this time.
 
-The Query-Publisher SHOULD entertain the case where the Query is lost, examine
+The query publisher SHOULD entertain the case where the Query is lost, examine
 options to detect and repair this, if possible. Timeouts, retries or fallbacks
 are perhaps options to investigate.
 
