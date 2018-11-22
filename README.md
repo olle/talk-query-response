@@ -316,27 +316,22 @@ _I very much recommend creating queries with expressions or terms from a
 
 A notification, published, as a response to a query, optionally carrying an
 information- or data-payload. A response MUST NOT be sent without an intent to
-_answer_ a specific query (use event notifications for that).
+_answer_ a specific query (use event notifications for that). The response
+MUST be sent to the address of the query it responds to, without manipulating
+it. A response SHOULD carry an appropriate information- or data-payload, with
+the intent to answer the query it responds to. Note that this is not a strict
+requirement. Responses SHOULD be sent within an appropriate time frame of
+seeing a query.
 
-The response MUST be sent to the address of the query it responds to, without
-manipulating it.
-
-A response SHOULD carry an appropriate information- or data-payload, with the
-intent to answer the query it responds to. Note that this is not a strict
-requirement.
-
-Responses SHOULD be sent within an appropriate time frame of seeing a query.
-
-_In most cases it's desirable to publish a response as quick as possible, 
+_In most cases it's desirable to publish a response as quick as possible,
  after consuming a query._
 
 #### `Address`
 
 Describes and designates an addressable _location_ with the capability to
-receive and handle responses. Typically a messaging _mailbox_ or a queue.
-
-The address MUST NOT describe a system actor or collaborator, but instead
-ensure decoupling between a publisher and a consumer.
+receive and handle responses. Typically a messaging _mailbox_ or a queue. The
+address MUST NOT describe a system actor or collaborator, but instead ensure
+decoupling between a publisher and a consumer.
 
 _In messaging or broker based systems, the address is typically a routing key,
  topic or a queue-name._
@@ -344,12 +339,9 @@ _In messaging or broker based systems, the address is typically a routing key,
 #### `Publisher`
 
 An actor that initiates the publishing of a notification, either a query or
-a response depending on its current role.
-
-The publisher MUST NOT be responsible for the arrival of any published
-information. 
-
-Publishers MUST NOT know any consumers.
+a response depending on its current role. The publisher MUST NOT be responsible
+for the arrival of any published information. Publishers MUST NOT know any
+consumers.
 
 _It is open for the implementation of the Query/Response pattern to solve or
  choose how it ensures delivery of messages, e.g. using a broker- or queue-
@@ -359,7 +351,6 @@ _It is open for the implementation of the Query/Response pattern to solve or
 
 An actor that willingly yields to the consumption of notifications, from some
 external source, either a response or a query depending on its current role.
-
 Consumers MUST NOT know any publishers.
 
 ### Methods and Actions
