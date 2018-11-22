@@ -297,13 +297,11 @@ pattern.
 #### `Query`
 
 A notification that expresses a specific _need_ or _whish_, which can be
-fulfilled by a response, published to a specified return address.
-
-The query MUST state its _need_ or _whish_ in an interpretable way. It may use
-any suitable syntax, semantics or language. Most commonly a simple string or
-term is used, similar to a message subject, -name or an event _routing-key_.
-
-A query MUST specify an address for responses, which SHOULD be _appropriate_
+fulfilled by a response, published to a specified return address. The query
+MUST state its _need_ or _whish_ in an interpretable way. It may use any
+suitable syntax, semantics or language. Most commonly a simple string or term
+is used, similar to a message subject, -name or an event _routing-key_. A
+query MUST specify an address for responses, which SHOULD be _appropriate_
 for the stated query and, technically _available_, as the query is created.
 
 _I very much recommend creating queries with expressions or terms from a
