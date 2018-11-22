@@ -341,6 +341,9 @@ a response depending on its current role. The publisher MUST NOT be responsible
 for the arrival of any published information. Publishers MUST NOT know any
 consumers.
 
+> NOTE: The concrete _interpolated_ roles `Query-Publisher` and
+> `Response-Publisher`, does not have to be bound to a single or unique actor.
+
 _It is open for the implementation of the Query/Response pattern to solve or
  choose how it ensures delivery of messages, e.g. using a broker- or queue-
  based messaging system or some other solution for asynchronous communication._
@@ -350,6 +353,9 @@ _It is open for the implementation of the Query/Response pattern to solve or
 An actor that willingly yields to the consumption of notifications, from some
 external source, either a response or a query depending on its current role.
 Consumers MUST NOT know any publishers.
+
+> NOTE: The concrete _interpolated_ roles `Query-Consumer` and
+> `Response-Consumer`, does not have to be bound to a single or unique actor.
 
 ### Methods and Actions
 
