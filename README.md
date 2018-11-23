@@ -286,9 +286,9 @@ pattern.
 
 ### Components and Collaborators
 
-| Name         | Type        | Notes                               |
+| Name         | Type        | Description                         |
 |--------------|-------------|-------------------------------------|
-| `Query`      | message     | Very small, published notification. | 
+| `Query`      | message     | Very small, published notification. |
 | `Response`   | message     | Carries information as payload.     |
 | `Address`    | location    | Reference to "a mailbox"            |
 | `Publisher`  | actor       | Initiates _publish_ method calls.   |
@@ -359,7 +359,12 @@ Consumers MUST NOT know any publishers.
 
 ### Methods and Actions
 
-#### `Query-Publisher` prepares an `Address`
+_Nothing in the Query/Response pattern is synchronous, or based on the notion
+ of guaranteed delivery (or only-once semantics). The following structured
+ step-by-step description is only for documentation purposes, and does not,
+ in any way, define a sequence which can be relied upon._
+
+#### 1. Prepare an `Address`
 
 Before publishing a query, the query publisher SHOULD ensure that the
 specified address can be handled.
@@ -369,49 +374,40 @@ only option is to use short-lived or temporary resources, which may or may
 not fail to be allocated. Therefore there's no strict requirement to ensure
 that the address can be handled._
 
-#### `Query-Publisher` publishes a `Query`
+#### 2. Publish a `Query`
 
 The query publisher can, at any time, choose to publish a query. No ACK or
 NACK will be provided and the query publisher MUST NOT assume that the query
-has been consumed, or that a response will be returned at this time.
+has been consumed, or that a response will be returned at this time. The query
+publisher SHOULD entertain the case where the Query is lost, examine options
+to detect and repair this, if possible. Timeouts, retries or fallbacks are
+perhaps options to investigate.
 
-The query publisher SHOULD entertain the case where the Query is lost, examine
-options to detect and repair this, if possible. Timeouts, retries or fallbacks
-are perhaps options to investigate.
+#### 3. Consume a `Query`
 
-#### `Query-Consumer` consumes a `Query`
-
-A Query-Consumer, that is willingly listening for queries, may at any time
-receive, and choose to handle, a Query.
-
-The Query-Consumer SHOULD handle Queries with an intent to _do what is right_.
-In most cases this would mean that Query-Consumers handle queries which they
-are capable of providing responses for.
+A query consumer, that is willingly listening for queries, may at any time
+receive, and choose to handle a query. The consumer SHOULD handle queries
+with an intent to provide a response, or ignore the query. A consumer MAY
+decide to publish none, one or any number of responses to the query - it is
+optional.
 
 _Please note that the Query/Response pattern does not protect against
-Query-Consumers with harmful intent. Implementations should consider issues
+query consumers with harmful intent. Implementations should consider issues
 like security, encryption and trust as extensions to it._
 
-A Query-Consumer MAY decide, after handling the Query, to publish none, one
-or any number of responses - it is optional.
+#### 4. Publish a `Response`
 
-#### `Response-Publisher` publishes a `Response`
+A response publisher MUST use the provided address of the query when publishing
+responses. No ACK or NACK will be provided and the publisher MUST NOT assume
+that the response has been delivered, arrived properly or consumed.
 
-The Response-Publisher MUST use the provided Address of the Query when
-publishing responses. No ACK or NACK will be provided and the
-Response-Publisher MUST NOT assume that the Response has been consumed, at
-this time.
+#### 5. Consume a `Response`
 
-#### `Response-Consumer` consumes a `Response`
-
-A Response-Consumer that is listening for responses, at a previously created
-Address MAY at any time receive one or several responses. It MAY never receive
-a Response at that Address.
-
-A received Response MAY have a payload or body of information, as well as any
-header-elements, META-data or other properties which may be specific to the
-transport layer. The Response-Consumer SHOULD assert and validate any
-transferred information with great care.
+A response consumer, that is listening for responses at a previously created
+address, MAY at any time receive one or several responses. It MAY never receive
+any response at all. Any received response MAY have a payload or body of
+information. The consumer SHOULD assert and validate any transferred
+information with great care.
 
 The example revisited
 ---------------------
