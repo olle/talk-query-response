@@ -453,18 +453,14 @@ scramble to their stations to extend for the new feature.
 We saw earlier that data returned was formed as a list of quoted strings, and
 the contract for parsing was: "first quoted string per line is book title".
 
-    ...
     body:
       "Neuromancer"
-    ...
 
 That rule and the capability to extend it, made it possible to agree on a new
 optional format: "trailing key-values are properties". For example:
 
-    ...
     body:
       "Neuromancer" isbn:9780307969958 stars:4
-    ...
 
 This is great. Let's get to work.
 
