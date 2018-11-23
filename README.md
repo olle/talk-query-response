@@ -24,6 +24,11 @@ Table of Contents
       + [Response](#response)
       + [Address](#address)
   - [Methods and Actions](#methods-and-actions)
+      + [1. Prepare Address](#1-prepare-address)
+      + [2. Publish Query](#2-publish-query)
+      + [3. Consume Query](#3-consume-query)
+      + [4. Publish Response](#4-publish-response)
+      + [5. Consume Response](#5-consume-response)
 - [The example revisited](#the-example-revisited)
   * [A better library protocol](#a-better-library-protocol)
   * [Top-3 books have stars](#top3-books-have-stars)
@@ -364,7 +369,7 @@ _Nothing in the Query/Response pattern is synchronous, or based on the notion
  step-by-step description is only for documentation purposes, and does not,
  in any way, define a sequence which can be relied upon._
 
-#### 1. Prepare an `Address`
+#### 1. Prepare `Address`
 
 Before publishing a query, the query publisher SHOULD ensure that the
 specified address can be handled.
@@ -374,7 +379,7 @@ only option is to use short-lived or temporary resources, which may or may
 not fail to be allocated. Therefore there's no strict requirement to ensure
 that the address can be handled._
 
-#### 2. Publish a `Query`
+#### 2. Publish `Query`
 
 The query publisher can, at any time, choose to publish a query. No ACK or
 NACK will be provided and the query publisher MUST NOT assume that the query
@@ -383,7 +388,7 @@ publisher SHOULD entertain the case where the Query is lost, examine options
 to detect and repair this, if possible. Timeouts, retries or fallbacks are
 perhaps options to investigate.
 
-#### 3. Consume a `Query`
+#### 3. Consume `Query`
 
 A query consumer, that is willingly listening for queries, may at any time
 receive, and choose to handle a query. The consumer SHOULD handle queries
@@ -395,13 +400,13 @@ _Please note that the Query/Response pattern does not protect against
 query consumers with harmful intent. Implementations should consider issues
 like security, encryption and trust as extensions to it._
 
-#### 4. Publish a `Response`
+#### 4. Publish `Response`
 
 A response publisher MUST use the provided address of the query when publishing
 responses. No ACK or NACK will be provided and the publisher MUST NOT assume
 that the response has been delivered, arrived properly or consumed.
 
-#### 5. Consume a `Response`
+#### 5. Consume `Response`
 
 A response consumer, that is listening for responses at a previously created
 address, MAY at any time receive one or several responses. It MAY never receive
