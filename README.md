@@ -564,18 +564,36 @@ complexities, pretty well.
 
 All communication and exchange is bound to fixed, configured, service end-
 points. Synchronous blocking calls exchange information based on formats
-declared in project Wiki-pages or Word-documents. Changes typically
-require system wide, synchronized, upgrades. This lead to development dropping
-in velocity, as each module or team will find it hard or impossible to
-act independently of each other.
+declared in project Wiki-pages or Word-documents. Most solutions are stateless,
+with I/O bound performance. Changes typically require system wide,
+synchronized, upgrades. This lead to development dropping in velocity, as each
+module or team will find it hard or impossible to act independently of each
+other.
 
 ### Level 1
 
 Using the Query/Response pattern for the first time often leads to healthy
 temporal decoupling pretty quick. But with a lot of code still written with
 a synchronous model in mind, the data exchange tend to look a bit like _sync_.
-Already at this level teams and modules gain a lot in the capability to move
-independently. Releases and deployment is practically not a tangle any more,
-although the view on evolutionary data-structures or protocols for data, may
-lag behind and still be Wiki/Document-based.
+Solutions move towards being stateful, but loosen their I/O-bound performance
+characteristics. It's hard for developer to think about queries and responses
+not coming from known components. Already at this level teams and modules gain
+a lot in the capability to move independently. Releases and deployment is
+practically not a tangle any more, although the view on evolutionary
+data-structures or protocols for data, may lag behind and still be
+Wiki/Document-based.
 
+### Level 2
+
+At this level a deeper insight into the value of a proper data-structure or
+protocol for payload, which can evolve as required, is often gained. With
+this comes the extended benefit of seamless upgrades and service evolution.
+Developers get to experience how responsibilities can move without breaking
+or changing any integration code - response publishers can change owners and
+location.
+
+### Level 3
+
+More and more ideas around reactivity and flexibility begin to take form.
+Events can immediately trigger queries which may enrich a local context based
+on current needs.
