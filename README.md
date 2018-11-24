@@ -34,6 +34,8 @@ Table of Contents
   * [Top-3 books have stars](#top3-books-have-stars)
   * [One of each flavour](#one-of-each-flavour)
   * [Out with the old](#out-with-the-old)
+- [Query/Response Maturity Model](#queryresponse-maturity-model)
+  
 
 Foreword
 --------
@@ -546,3 +548,22 @@ book service has been shut down.
 Again we can see how the Query/Response pattern helps in coping with a natural
 evolution of the system. Services can be added, removed or upgraded at any
 time.
+
+Query/Response Maturity Model
+-----------------------------
+
+Just like with the [Richardson Maturity Model][9010], I've identified an
+evolution of maturity around the acceptance, use and implementation of
+Query/Response. It describes the benefits, opportunities and also
+complexities, pretty well.
+
+  [9010]: https://martinfowler.com/articles/richardsonMaturityModel.html
+
+### Level 0
+
+All communication and exchange is bound to fixed, configured, service end-
+points. Synchronous blocking calls exchange information based on formats
+declared in project Wiki-pages or Word-documents. Changes typically
+require system wide, synchronized, upgrades. This lead to development dropping
+in velocity, as each module or team will find it hard or impossible to
+act independently of each other.
