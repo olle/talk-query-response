@@ -35,7 +35,8 @@ Table of Contents
   * [One of each flavour](#one-of-each-flavour)
   * [Out with the old](#out-with-the-old)
 - [Query/Response Maturity Model](#queryresponse-maturity-model)
-  
+  * [Level 0 - Purgatory](#level-0-purgatory)
+
 
 Foreword
 --------
@@ -559,7 +560,7 @@ complexities, pretty well.
 
   [9010]: https://martinfowler.com/articles/richardsonMaturityModel.html
 
-### Level 0
+### Level 0 - Purgatory
 
 All communication and exchange is bound to fixed, configured, service end-
 points. Synchronous blocking calls exchange information based on formats
