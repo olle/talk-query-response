@@ -36,6 +36,9 @@ Table of Contents
   * [Out with the old](#out-with-the-old)
 - [Query/Response Maturity Model](#queryresponse-maturity-model)
   * [Level 0 - Purgatory](#level-0---purgatory)
+  * [Level 1](#level-1)
+  * [Level 2](#level-2)
+  * [Level 3](#level-3)
 
 
 Foreword
