@@ -608,4 +608,13 @@ malleable _data shapes_.
 
 Information exchange using the Query/Response pattern allows for almost
 limitless evolution of services, or components, no longer bound to versions or
-availability.
+availability. The structure of any data is also very dynamic, information can
+be partial, enriched, or come in different sets, from different publishers. No
+schema is required at this level, but _data shapes_ are used, which can be
+embraced by all collaborators in the architecture. Queries are sent and
+responses consumed, sometimes within deliberate timeouts; take-until semantics.
+This way modules can provide, and fulfill, explicit SLAs if required.
+
+_This is of course not supposed to be taken too seriously, but the maturity
+ levels describes a journey, from a strict and stale model, into one where
+ evolution and change is quite normal._
