@@ -599,4 +599,13 @@ location.
 
 More and more ideas around reactivity and flexibility begin to take form.
 Events can immediately trigger queries which may enrich a local context based
-on current needs.
+on current needs. This moves the design and use beyond a system using sync,
+and durable persistent state, to a more ephemeral and _living_ model. The data
+structure of payloads tend to be less bound to strict _types_ and more
+malleable _data shapes_.
+
+### Level 4 and beyond...
+
+Information exchange using the Query/Response pattern allows for almost
+limitless evolution of services, or components, no longer bound to versions or
+availability.
